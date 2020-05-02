@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5a336b9d-499e-49ec-9099-44b99565a81b" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="59" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="FinancialAssistant" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="FinancialAssistant" type="f1a62948:ProjectNode" />
+                <item name="Source Sets" type="e897c970:GradleViewContributor$SourceSetsNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="FinancialAssistant" type="f1a62948:ProjectNode" />
+                <item name="Source Sets" type="e897c970:GradleViewContributor$SourceSetsNode" />
+                <item name="main" type="396b929e:GradleViewContributor$SourceSetNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="FinancialAssistant" type="f1a62948:ProjectNode" />
+                <item name="Source Sets" type="e897c970:GradleViewContributor$SourceSetsNode" />
+                <item name="main" type="396b929e:GradleViewContributor$SourceSetNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1airPwNkiXqf6yPaYCbn0V4W9gE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="gradle clean" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.FinancialAssistantSpringEntrypoint">
+    <configuration name="FinancialAssistantApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="financial.assistant.FinancialAssistantApplication" />
+      <module name="FinancialAssistant.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="financial.assistant.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FinancialAssistantSpringEntrypoint" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="financial.assistant.FinancialAssistantSpringEntrypoint" />
+      <module name="FinancialAssistant.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="financial.assistant.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FinancialAssistant [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" value="" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.FinancialAssistantSpringEntrypoint" />
+        <item itemvalue="Gradle.FinancialAssistant [clean]" />
+        <item itemvalue="Application.FinancialAssistantApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5a336b9d-499e-49ec-9099-44b99565a81b" name="Default Changelist" comment="" />
+      <created>1587229234781</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587229234781</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="269" y="361" key="#Project_Structure" timestamp="1587258015350">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="269" y="361" key="#Project_Structure/0.0.2560.1400@0.0.2560.1400" timestamp="1587258015350" />
+    <state x="482" y="412" key="#com.intellij.ide.util.MemberChooser" timestamp="1588379576988">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="482" y="412" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1588379576988" />
+    <state x="1010" y="446" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1587229258693">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1010" y="446" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587229258693" />
+    <state x="1060" y="454" key="FileChooserDialogImpl" timestamp="1587765075441">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1060" y="454" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1587765075441" />
+    <state width="2517" height="391" key="GridCell.Tab.0.bottom" timestamp="1588380239986">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="391" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1588380239986" />
+    <state width="2517" height="391" key="GridCell.Tab.0.center" timestamp="1588380239985">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="391" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1588380239985" />
+    <state width="2517" height="391" key="GridCell.Tab.0.left" timestamp="1588380239985">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="391" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1588380239985" />
+    <state width="2517" height="391" key="GridCell.Tab.0.right" timestamp="1588380239986">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="391" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1588380239986" />
+    <state width="1234" height="491" key="GridCell.Tab.1.bottom" timestamp="1588130947281">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1234" height="491" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1588130947281" />
+    <state width="1234" height="491" key="GridCell.Tab.1.center" timestamp="1588130947281">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1234" height="491" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1588130947281" />
+    <state width="1234" height="491" key="GridCell.Tab.1.left" timestamp="1588130947281">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1234" height="491" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1588130947281" />
+    <state width="1234" height="491" key="GridCell.Tab.1.right" timestamp="1588130947281">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1234" height="491" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1588130947281" />
+    <state x="343" y="522" key="com.intellij.ide.util.TipDialog" timestamp="1588360665932">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="343" y="522" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1588360665932" />
+    <state x="953" y="314" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1588202385501">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="953" y="314" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1588202385501" />
+    <state x="936" y="330" width="672" height="677" key="run.anything.popup" timestamp="1588123053299">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="936" y="330" width="672" height="677" key="run.anything.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1588123053299" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/build.gradle</url>
+          <line>13</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/FinancialAssistant$FinancialAssistantSpringEntrypoint.ic" NAME="FinancialAssistantSpringEntrypoint Coverage Results" MODIFIED="1588205784108" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>financial.assistant.*</FILTER>
+    </SUITE>
+  </component>
+</project>
