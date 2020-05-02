@@ -78,7 +78,6 @@ public class CreateAccountComponentController {
             MonthlyExpense singleFinancialEntry = new MonthlyExpense();
             singleFinancialEntry.setExpenseCost(Double.parseDouble(expenseCost.getText().trim()));
             singleFinancialEntry.setExpenseName(expenseName.getText().trim());
-            singleFinancialEntry.setExpenseDueDate(new Timestamp(dueDate.getValue().toEpochDay()));
             singleFinancialEntry.setUserAccount(newUserAccount);
             monthlyExpenses.add(singleFinancialEntry);
 
