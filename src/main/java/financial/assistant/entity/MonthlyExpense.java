@@ -1,7 +1,6 @@
 package financial.assistant.entity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "monthly_expense")
@@ -16,9 +15,6 @@ public class MonthlyExpense {
 
     @Column(name = "expense_cost", nullable = false)
     private Double expenseCost;
-
-    @Column(name = "expense_due_date")
-    private Timestamp expenseDueDate;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
@@ -50,14 +46,6 @@ public class MonthlyExpense {
 
     public void setExpenseCost(Double expenseCost) {
         this.expenseCost = expenseCost;
-    }
-
-    public Timestamp getExpenseDueDate() {
-        return expenseDueDate;
-    }
-
-    public void setExpenseDueDate(Timestamp expenseDueDate) {
-        this.expenseDueDate = expenseDueDate;
     }
 
     public UserAccount getUserAccount() {
