@@ -4,20 +4,20 @@ import financial.assistant.entity.UserAccount;
 import financial.assistant.enums.ExportFormat;
 import financial.assistant.repository.UserAccountRepository;
 import financial.assistant.utils.FileExportUtils;
-import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 @Component
@@ -30,6 +30,7 @@ public class ExportAccountComponentController {
     private @FXML ChoiceBox formatOptions;
     private @FXML Button exportButton;
     private @FXML VBox parentContainer;
+    private @FXML Label messageText;
 
     public void initialize() {
 
@@ -56,7 +57,9 @@ public class ExportAccountComponentController {
             ExportFormat format = ExportFormat.valueOf((String) formatOptions.getValue());
             UserAccount userAccount = userAccountRepository.findByAccountName((String) accountOptions.getValue());
             try {
-                fileExportUtils.exportUserAccount(format, selectedDirectory, userAccount);
+                Path p  = fileExportUtils.exportUserAccount(format, selectedDirectory, userAccount);
+                messageText.setText("Account successfully exported to " + p.toAbsolutePath());
+                messageText.setStyle("-fx-text-fill: green");
             }catch(IOException e) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setHeaderText("Warning!");
