@@ -14,6 +14,7 @@
       <ChoiceBox fx:id="accountOptions" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
       <Label text="Select the format you would like it exported as" />
       <ChoiceBox fx:id="formatOptions" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+      <Label fx:id="messageText" />
       <HBox alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
          <children>
             <Button fx:id="exportButton" mnemonicParsing="false" text="Export" />
