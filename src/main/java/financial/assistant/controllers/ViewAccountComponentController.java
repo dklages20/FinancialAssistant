@@ -1,5 +1,6 @@
 package financial.assistant.controllers;
 
+import financial.assistant.controllers.account.EditAccountComponentController;
 import financial.assistant.entity.MonthlyExpense;
 import financial.assistant.entity.MonthlyFinance;
 import financial.assistant.entity.UserAccount;
@@ -8,20 +9,27 @@ import financial.assistant.repository.UserAccountRepository;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,7 +99,9 @@ public class ViewAccountComponentController {
         // build user account information and add labels/text fields for each value
         UserAccount selectedAccount = userAccountRepository.findByAccountName((String) accountChoices.getValue());
         if(selectedAccount != null && selectedAccount.getMonthlyFinances() != null) {
-            MonthlyFinance monthlyFinancialData = selectedAccount.getMonthlyFinances().get(0);
+            List<MonthlyFinance> finances = selectedAccount.getMonthlyFinances();
+            Collections.sort(finances);
+            MonthlyFinance monthlyFinancialData = finances.get(finances.size() - 1);
             addIncomeData("Monthly Income", monthlyFinancialData.getMonthlyIncome().toString(), financialInfoContainer);
             addIncomeData("Monthly Expenses", monthlyFinancialData.getMonthlyExpenses().toString(), financialInfoContainer);
             addIncomeData("Monthly Remaining", monthlyFinancialData.getMonthlyRemaining().toString(), financialInfoContainer);
@@ -151,6 +161,8 @@ public class ViewAccountComponentController {
                 case DELETE_ACCOUNT:
                     controlButton.setOnAction(this::openDeleteDialog);
                     break;
+                case EDIT_ACCOUNT:
+                    controlButton.setOnAction(this::openEditAccountDialog);
             }
 
             options.add(controlButton);
@@ -181,6 +193,24 @@ public class ViewAccountComponentController {
                 accountChoices.getItems().remove(accountChoices.getItems().indexOf((String) accountChoices.getValue()));
             }
         });
+    }
+
+    private void openEditAccountDialog(ActionEvent event) {
+        try {
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/account-management/edit-account.fxml"));
+           loader.setControllerFactory(applicationContext::getBean);
+           Parent root = loader.load();
+           loader.<EditAccountComponentController>getController().setAccountName((String) accountChoices.getValue());
+
+           Stage stage = new Stage();
+           stage.setScene(new Scene(root, 600, 600));
+           stage.showAndWait();
+
+            // wait for it to close and get the callback
+
+        }catch(IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

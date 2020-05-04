@@ -75,7 +75,6 @@ public class CreateAccountComponentController {
             // we know that if there is an HBox available, then we have a textfield, textfield, and datepicker
             TextField expenseName = (TextField) singleExpenseContainer.getChildren().get(0);
             TextField expenseCost = (TextField) singleExpenseContainer.getChildren().get(1);
-            DatePicker dueDate = (DatePicker) singleExpenseContainer.getChildren().get(2);
 
             if(expenseName.getText().equals("") || expenseCost.getText().equals("")) {
                 createErrorMessage("Please ensure all expenses are filled out before submitting the form");
