@@ -15,6 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,8 @@ import java.util.List;
 @Component
 public class CreateAccountComponentController {
 
+    private static final Logger logger = LoggerFactory.getLogger(CreateAccountComponentController.class);
+
     private @Autowired ApplicationContext applicationContext;
     private @Autowired UserAccountRepository userAccountRepository;
 
@@ -38,15 +42,18 @@ public class CreateAccountComponentController {
     private @FXML Label errorLabel;
 
     public void initialize() {
+        logger.info("Initializing component class {}", CreateAccountComponentController.class);
         this.addExpenseButton.setOnAction(this::addExpense);
         this.submitButton.setOnAction(this::onSubmit);
     }
 
     public void onSubmit(ActionEvent event) {
         if(accountNameField.getText().equals("")) {
+            logger.info("Unable to create account because account name is empty");
             createErrorMessage("Please enter an account name");
             return;
         } else if(accountIncomeField.getText().equals("")) {
+            logger.info("Unable to create account because account income is empty");
             createErrorMessage("Please enter a monthly income for this account");
             return;
         }
@@ -68,9 +75,8 @@ public class CreateAccountComponentController {
             // we know that if there is an HBox available, then we have a textfield, textfield, and datepicker
             TextField expenseName = (TextField) singleExpenseContainer.getChildren().get(0);
             TextField expenseCost = (TextField) singleExpenseContainer.getChildren().get(1);
-            DatePicker dueDate = (DatePicker) singleExpenseContainer.getChildren().get(2);
 
-            if(expenseName.getText().equals("") || expenseCost.getText().equals("") || dueDate.getValue() == null) {
+            if(expenseName.getText().equals("") || expenseCost.getText().equals("")) {
                 createErrorMessage("Please ensure all expenses are filled out before submitting the form");
                 return;
             }
@@ -96,6 +102,7 @@ public class CreateAccountComponentController {
         userAccountRepository.save(newUserAccount);
 
         createSuccessMessage("Account successfully created");
+        logger.info("Saving account with name = {}", newUserAccount.getAccountName());
         clear();
     }
 

@@ -20,7 +20,7 @@ public class FinancialAssistantSpringEntrypoint {
     }
 
     @Bean
-    @ConditionalOnProperty("${environment.dev}")
+    @ConditionalOnProperty(prefix = "environment", name = "dev", havingValue = "true")
     public Server h2Server() throws SQLException {
         return Server.createWebServer().start();
     }
