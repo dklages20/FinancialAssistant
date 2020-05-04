@@ -8,22 +8,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financial.assistant.controllers.ViewAccountComponentController">
-   <children>
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financial.assistant.controllers.ViewAccountComponentController">
       <Label text="Select the account you wish to view" />
       <ChoiceBox fx:id="accountChoices" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
-      <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+      <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
          <children>
+             <Label fx:id="message"></Label>
             <Button fx:id="submitButton" mnemonicParsing="false" text="Submit" />
          </children>
       </HBox>
       <Separator maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
-      <VBox fx:id="accountContainer" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </VBox>
-   </children>
+    <VBox fx:id="accountContainer" spacing="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+    </VBox>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
