@@ -46,6 +46,7 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
             loader.setControllerFactory(applicationContext::getBean);
             Parent root = loader.load();
             Scene scene = new Scene(root, width, height);
+            scene.getStylesheets().add("/css/theme.css");
             stage.setScene(scene);
             stage.setTitle(this.applicationTitle);
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/images/application-icon.png")));
