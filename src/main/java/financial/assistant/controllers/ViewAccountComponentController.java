@@ -204,9 +204,9 @@ public class ViewAccountComponentController {
 
            Stage stage = new Stage();
            stage.setScene(new Scene(root, 600, 600));
+           stage.setTitle("Edit Account");
+           stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/images/application-icon.png")));
            stage.showAndWait();
-
-            // wait for it to close and get the callback
 
         }catch(IOException e) {
             throw new RuntimeException(e);

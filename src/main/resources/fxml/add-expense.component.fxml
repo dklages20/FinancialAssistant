@@ -5,10 +5,12 @@
 <?import javafx.scene.layout.HBox?>
 
 
+<?import javafx.scene.control.Button?>
 <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financial.assistant.controllers.AddExpenseComponentController">
    <children>
       <TextField fx:id="expenseNameField" promptText="Expense Name" HBox.hgrow="ALWAYS" />
       <TextField fx:id="expenseCostField" promptText="Expense Cost" HBox.hgrow="ALWAYS" />
+      <Button fx:id="deleteExpenseButton" text="X"></Button>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

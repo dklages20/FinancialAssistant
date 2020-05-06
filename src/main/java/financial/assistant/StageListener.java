@@ -3,6 +3,7 @@ package financial.assistant;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.slf4j.Logger;
@@ -47,6 +48,7 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
             Scene scene = new Scene(root, width, height);
             stage.setScene(scene);
             stage.setTitle(this.applicationTitle);
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/images/application-icon.png")));
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);

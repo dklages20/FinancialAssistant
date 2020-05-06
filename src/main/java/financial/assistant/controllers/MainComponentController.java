@@ -55,11 +55,12 @@ public class MainComponentController {
 
             this.menuToolbar.getItems().add(button);
         }
+
     }
 
     public void clear() {
-        if(this.mainBox.getChildren().size() > 2) {
-            this.mainBox.getChildren().remove(2);
+        if(this.mainBox.getChildren().size() > 1) {
+            this.mainBox.getChildren().remove(1);
         }
     }
 
@@ -95,5 +96,4 @@ public class MainComponentController {
             throw new RuntimeException(e);
         }
     }
-
 }
