@@ -15,10 +15,10 @@ public class UserAccount {
     @Column(name = "account_name", nullable = false)
     private String accountName;
 
-    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<MonthlyExpense> monthlyExpenses = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<MonthlyFinance> monthlyFinances = new ArrayList<>();
 
     public UserAccount () {

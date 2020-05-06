@@ -5,6 +5,7 @@ import financial.assistant.data.MonthlyExpenseData;
 import financial.assistant.entity.MonthlyExpense;
 import financial.assistant.entity.MonthlyFinance;
 import financial.assistant.entity.UserAccount;
+import financial.assistant.repository.MonthlyExpenseRepository;
 import financial.assistant.repository.UserAccountRepository;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -45,6 +46,7 @@ public class EditAccountComponentController {
     private @FXML Label message;
     private @Autowired UserAccountRepository userAccountRepository;
     private @Autowired ApplicationContext applicationContext;
+    private @Autowired MonthlyExpenseRepository monthlyExpenseRepository;
 
     private String accountName;
 
@@ -158,8 +160,6 @@ public class EditAccountComponentController {
             List<MonthlyExpense> expenses = userAccount.getMonthlyExpenses();
             monthlyExpenses.forEach(e -> {
 
-                logger.info("Adding expense = {}", e.getExpenseName());
-
                 // find the expense with the provided name if it exists
                 Optional<MonthlyExpense> optExpense = expenses.stream().filter(ex -> ex.getExpenseName().equals(e.getExpenseName())).findFirst();
                 if(optExpense.isPresent()) {
@@ -176,7 +176,15 @@ public class EditAccountComponentController {
             });
 
             // after adding/updating the expenses, we need to remove any expenses that weren't present in the list
-            expenses.removeIf(p -> !monthlyExpenses.stream().map(e -> e.getExpenseName()).collect(Collectors.toList()).contains(p.getExpenseName()));
+            List<String> remainingExpenseNames = monthlyExpenses.stream().map(expense -> expense.getExpenseName()).collect(Collectors.toList());
+            List<MonthlyExpense> expensesToRemove = new ArrayList<>();
+            for(MonthlyExpense expense : expenses) {
+                if(!remainingExpenseNames.contains(expense.getExpenseName())) {
+                    logger.info("Removing expense with name = {} from account = {} expense list", expense.getExpenseName(), userAccount.getAccountName());
+                    expensesToRemove.add(expense);
+                }
+            }
+            expenses.removeAll(expensesToRemove);
 
             // set the expense list to the new filtered data
             userAccount.setMonthlyExpenses(expenses);
@@ -195,6 +203,7 @@ public class EditAccountComponentController {
             // at this point, everything should be filled out, attempt to save and if any exceptions occur, pop the error modal letting them know an unexpected error occurred and they should contact
             try {
                 userAccountRepository.save(userAccount);
+                expensesToRemove.forEach(e -> monthlyExpenseRepository.delete(e));
                 ((Stage) expensesContainer.getScene().getWindow()).close();
             }catch(Exception e) {
                 logger.error("An unexpected error occurred while saving user account", e);

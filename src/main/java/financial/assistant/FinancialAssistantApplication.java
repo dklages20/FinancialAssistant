@@ -1,5 +1,6 @@
 package financial.assistant;
 
+import financial.assistant.utils.JavaFXAssistingFunctions;
 import javafx.application.Application;
 
 import javafx.application.HostServices;
@@ -34,8 +35,7 @@ public class FinancialAssistantApplication extends Application{
 
     @Override
     public void stop() throws Exception {
-        this.context.stop();
-        Platform.exit();
+        JavaFXAssistingFunctions.shutdownHook(context);
     }
 
     @Override
