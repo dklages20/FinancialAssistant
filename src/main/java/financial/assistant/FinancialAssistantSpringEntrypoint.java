@@ -12,7 +12,6 @@ import java.sql.SQLException;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@EnableJpaRepositories
 public class FinancialAssistantSpringEntrypoint {
 
     public static void main(String [] args) {
