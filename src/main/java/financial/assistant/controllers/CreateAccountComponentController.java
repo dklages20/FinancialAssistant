@@ -3,16 +3,20 @@ package financial.assistant.controllers;
 import financial.assistant.entity.MonthlyExpense;
 import financial.assistant.entity.MonthlyFinance;
 import financial.assistant.entity.UserAccount;
+import financial.assistant.enums.ui.FxmlComponent;
+import financial.assistant.exceptions.ComponentLoadException;
 import financial.assistant.repository.UserAccountRepository;
 import financial.assistant.utils.data.NumberUtils;
+import financial.assistant.utils.ui.AlertProvider;
+import financial.assistant.utils.ui.ComponentLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
@@ -21,7 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,11 +51,11 @@ public class CreateAccountComponentController {
     }
 
     public void onSubmit(ActionEvent event) {
-        if(accountNameField.getText().equals("")) {
+        if (accountNameField.getText().equals("")) {
             logger.info("Unable to create account because account name is empty");
             createErrorMessage("Please enter an account name");
             return;
-        } else if(accountIncomeField.getText().equals("")) {
+        } else if (accountIncomeField.getText().equals("")) {
             logger.info("Unable to create account because account income is empty");
             createErrorMessage("Please enter a monthly income for this account");
             return;
@@ -69,14 +72,15 @@ public class CreateAccountComponentController {
 
         // build monthly expenses
         List<MonthlyExpense> monthlyExpenses = new ArrayList<>();
-        for(Node node : expensesContainer.getChildren()) {
+        for (Node node : expensesContainer.getChildren()) {
             HBox singleExpenseContainer = (HBox) node;
 
-            // we know that if there is an HBox available, then we have a textfield, textfield, and datepicker
+            // we know that if there is an HBox available, then we have a textfield,
+            // textfield, and datepicker
             TextField expenseName = (TextField) singleExpenseContainer.getChildren().get(0);
             TextField expenseCost = (TextField) singleExpenseContainer.getChildren().get(1);
 
-            if(expenseName.getText().equals("") || expenseCost.getText().equals("")) {
+            if (expenseName.getText().equals("") || expenseCost.getText().equals("")) {
                 createErrorMessage("Please ensure all expenses are filled out before submitting the form");
                 return;
             }
@@ -91,7 +95,7 @@ public class CreateAccountComponentController {
 
         // calculate left over money
         double totalCost = 0;
-        for(MonthlyExpense expense: monthlyExpenses) {
+        for (MonthlyExpense expense : monthlyExpenses) {
             totalCost += expense.getExpenseCost();
         }
 
@@ -108,12 +112,14 @@ public class CreateAccountComponentController {
 
     public void addExpense(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/add-expense.component.fxml"));
-            loader.setControllerFactory(applicationContext::getBean);
-            Parent root = loader.load();
+            Parent root = ComponentLoader.loadComponent(FxmlComponent.ADD_EXPENSE_COMPONENT,
+                    applicationContext::getBean);
             this.expensesContainer.getChildren().add(root);
-        }catch(IOException e) {
-            throw new RuntimeException(e);
+        } catch (ComponentLoadException e) {
+            logger.error("An exception occured while loading component = {} from = {}",
+                    FxmlComponent.ADD_EXPENSE_COMPONENT, FxmlComponent.ADD_EXPENSE_COMPONENT.getResoucePath());
+            AlertProvider.openAlert(AlertType.ERROR, "Error", "Unable to load component",
+                    "An problem occurred while trying to load add expense component");
         }
     }
 

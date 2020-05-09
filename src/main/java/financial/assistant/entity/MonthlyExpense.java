@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "monthly_expense")
-public class MonthlyExpense {
+public class MonthlyExpense implements Comparable<MonthlyExpense>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class MonthlyExpense {
     private UserAccount userAccount;
 
     public MonthlyExpense() {
-
+        // needed by hibernate
     }
 
     public Integer getId() {
@@ -54,5 +54,25 @@ public class MonthlyExpense {
 
     public void setUserAccount(UserAccount userAccount) {
         this.userAccount = userAccount;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        boolean equal = false;
+        if(o instanceof MonthlyExpense) {
+            MonthlyExpense that = (MonthlyExpense) o;
+            equal = this.id == that.id && this.expenseName.equals(that.expenseName) && this.expenseCost == that.expenseCost && this.userAccount == that.userAccount;
+        }
+        return equal;
+    }
+
+    @Override
+    public int compareTo(MonthlyExpense o) {
+        return this.getExpenseName().compareTo(o.getExpenseName());
     }
 }

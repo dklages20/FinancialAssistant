@@ -9,10 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -20,20 +19,17 @@ import java.util.List;
 public class ViewAccountInfoComponentController {
 
     private @Autowired UserAccountRepository userAccountRepository;
-    private @Autowired ApplicationContext applicationContext;
 
     private @FXML Label accountNameLabel;
     private @FXML Label totalIncomeLabel;
     private @FXML Label totalExpensesLabel;
     private @FXML Label remainingLabel;
-    private @FXML ListView expensesContainer;
+    private @FXML ListView<String> expensesContainer;
     private String userAccountName;
 
     @FXML
     public void initialize() {
-        Platform.runLater(() -> {
-           buildContents();
-        });
+        Platform.runLater(this::buildContents);
     }
 
     public void buildContents() {
@@ -48,17 +44,7 @@ public class ViewAccountInfoComponentController {
 
         // sort the list of expenses alphabetically and add them to the list view
         List<MonthlyExpense> expenses = userAccount.getMonthlyExpenses();
-        expenses.sort(new Comparator<MonthlyExpense>() {
-            @Override
-            public int compare(MonthlyExpense o1, MonthlyExpense o2) {
-                if(o1.getExpenseName().compareTo(o2.getExpenseName()) > 0) {
-                    return 1;
-                } else if (o1.getExpenseName().compareTo(o2.getExpenseName()) < 0) {
-                    return -1;
-                } else return 1;
-            }
-        });
-
+        Collections.sort(expenses);
         for(MonthlyExpense expense : expenses) {
             expensesContainer.getItems().add(expense.getExpenseName() + "    ( " + expense.getExpenseCost() + " )");
         }

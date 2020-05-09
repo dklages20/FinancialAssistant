@@ -5,6 +5,7 @@ import financial.assistant.entity.MonthlyExpense;
 import financial.assistant.entity.MonthlyFinance;
 import financial.assistant.entity.UserAccount;
 import financial.assistant.enums.AccountControls;
+import financial.assistant.enums.ui.FxmlComponent;
 import financial.assistant.repository.UserAccountRepository;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -19,7 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class ViewAccountComponentController {
     private @Autowired UserAccountRepository userAccountRepository;
     private @Autowired ApplicationContext applicationContext;
 
-    private @FXML ChoiceBox accountChoices;
+    private @FXML ChoiceBox<String> accountChoices;
     private @FXML Button submitButton;
     private @FXML VBox accountContainer;
     private @FXML Label message;
@@ -50,8 +50,8 @@ public class ViewAccountComponentController {
         logger.info("Initializing component {}", ViewAccountComponentController.class);
 
         List<UserAccount> userAccounts = userAccountRepository.findAll();
-        if(userAccounts != null && userAccounts.size() > 0) {
-            List<String> accountNames = userAccounts.stream().map(account -> account.getAccountName()).collect(Collectors.toList());
+        if(!userAccounts.isEmpty()) {
+            List<String> accountNames = userAccounts.stream().map(UserAccount::getAccountName).collect(Collectors.toList());
             this.accountChoices.setItems(FXCollections.observableArrayList(accountNames));
         }
 
@@ -100,11 +100,13 @@ public class ViewAccountComponentController {
         UserAccount selectedAccount = userAccountRepository.findByAccountName((String) accountChoices.getValue());
         if(selectedAccount != null && selectedAccount.getMonthlyFinances() != null) {
             List<MonthlyFinance> finances = selectedAccount.getMonthlyFinances();
-            Collections.sort(finances);
-            MonthlyFinance monthlyFinancialData = finances.get(finances.size() - 1);
-            addIncomeData("Monthly Income", monthlyFinancialData.getMonthlyIncome().toString(), financialInfoContainer);
-            addIncomeData("Monthly Expenses", monthlyFinancialData.getMonthlyExpenses().toString(), financialInfoContainer);
-            addIncomeData("Monthly Remaining", monthlyFinancialData.getMonthlyRemaining().toString(), financialInfoContainer);
+            if(finances != null) {
+                Collections.sort(finances);
+                MonthlyFinance monthlyFinancialData = finances.get(finances.size() - 1);
+                addIncomeData("Monthly Income", monthlyFinancialData.getMonthlyIncome().toString(), financialInfoContainer);
+                addIncomeData("Monthly Expenses", monthlyFinancialData.getMonthlyExpenses().toString(), financialInfoContainer);
+                addIncomeData("Monthly Remaining", monthlyFinancialData.getMonthlyRemaining().toString(), financialInfoContainer);
+            }
         }
 
         return financialInfoContainer;
@@ -119,9 +121,9 @@ public class ViewAccountComponentController {
         logger.info("Building expenses for account = {}", accountChoices.getValue());
         List<Node> expensesNodes = new ArrayList<>();
         // build expenses information from the user account expenses
-        UserAccount userAccount = userAccountRepository.findByAccountName((String) accountChoices.getValue());
+        UserAccount userAccount = userAccountRepository.findByAccountName(accountChoices.getValue());
         if(userAccount != null) {
-            ListView expensesView = new ListView();
+            ListView<String> expensesView = new ListView<>();
             for(MonthlyExpense expense : userAccount.getMonthlyExpenses()) {
                 expensesView.getItems().add(String.format("%s  (%s)", expense.getExpenseName(), expense.getExpenseCost().toString()));
             }
@@ -156,15 +158,11 @@ public class ViewAccountComponentController {
             Button controlButton = new Button();
             controlButton.setText(control.getOptions());
             controlButton.setGraphic(new ImageView(new Image(control.getImagePath())));
-
-            switch (control) {
-                case DELETE_ACCOUNT:
-                    controlButton.setOnAction(this::openDeleteDialog);
-                    break;
-                case EDIT_ACCOUNT:
-                    controlButton.setOnAction(this::openEditAccountDialog);
+            if(control == AccountControls.DELETE_ACCOUNT) {
+                controlButton.setOnAction(this::openDeleteDialog);
+            } else if(control == AccountControls.EDIT_ACCOUNT) {
+                controlButton.setOnAction(this::openEditAccountDialog);
             }
-
             options.add(controlButton);
         }
         return options;
@@ -195,12 +193,15 @@ public class ViewAccountComponentController {
         });
     }
 
+    /**
+     * Opens the dialog used to edit an account
+     */
     private void openEditAccountDialog(ActionEvent event) {
         try {
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/account-management/edit-account.fxml"));
+           FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlComponent.EDIT_ACCOUNT_COMPONENT.getResoucePath()));
            loader.setControllerFactory(applicationContext::getBean);
            Parent root = loader.load();
-           loader.<EditAccountComponentController>getController().setAccountName((String) accountChoices.getValue());
+           loader.<EditAccountComponentController>getController().setAccountName(accountChoices.getValue());
 
            Stage stage = new Stage();
            stage.setScene(new Scene(root, 600, 600));
@@ -209,7 +210,7 @@ public class ViewAccountComponentController {
            stage.showAndWait();
 
         }catch(IOException e) {
-            throw new RuntimeException(e);
+            logger.info("An error occurred while trying to load component = {} from = {}", FxmlComponent.EDIT_ACCOUNT_COMPONENT, FxmlComponent.EDIT_ACCOUNT_COMPONENT.getResoucePath());
         }
     }
 
