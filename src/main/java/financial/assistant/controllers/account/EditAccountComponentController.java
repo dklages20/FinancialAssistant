@@ -7,6 +7,7 @@ import financial.assistant.entity.MonthlyFinance;
 import financial.assistant.entity.UserAccount;
 import financial.assistant.repository.MonthlyExpenseRepository;
 import financial.assistant.repository.UserAccountRepository;
+import financial.assistant.utils.data.NumberUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -127,7 +128,7 @@ public class EditAccountComponentController {
             }
 
             try {
-                monthlyExpenses.add(new MonthlyExpenseData(expenseName.getText(), Double.parseDouble(expenseCost.getText())));
+                monthlyExpenses.add(new MonthlyExpenseData(expenseName.getText(), NumberUtils.round(Double.parseDouble(expenseCost.getText()))));
             }catch(NumberFormatException e) {
                 logger.error("An error occurred while parsing expenses", e);
                 createModalError("An error occurred while reading expenses", "Please make sure the cost of all expenses contain only numbers without any special characters except for \".\"" );
@@ -149,7 +150,7 @@ public class EditAccountComponentController {
             monthlyFinance.setCreatedOn(new Timestamp(System.currentTimeMillis()));
 
             try {
-                monthlyFinance.setMonthlyIncome(Double.parseDouble(monthlyIncomeField.getText()));
+                monthlyFinance.setMonthlyIncome(NumberUtils.round(Double.parseDouble(monthlyIncomeField.getText())));
             }catch(NumberFormatException e){
                 logger.error("An error occurred while parsing monthly income field", e);
                 createModalError("An error occurred while reading the accounts monthly income", "Please make sure the monthly income field contains only numbers without any special characters except for \".\"");
