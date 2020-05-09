@@ -2,7 +2,11 @@ package financial.assistant.utils;
 
 import financial.assistant.enums.OperatingSystem;
 
-public class DatabaseFileLocationDeterminer {
+public final class DatabaseFileLocationDeterminer {
+
+    private DatabaseFileLocationDeterminer() {
+        // hiding public constructor
+    }
 
     public static String determineDatabaseFileLocation() {
         OperatingSystem operatingSystem = determineOperatingSystem();

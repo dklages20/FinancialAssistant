@@ -1,25 +1,29 @@
 package financial.assistant.controllers;
 
 import financial.assistant.enums.MenuOption;
+import financial.assistant.enums.ui.FxmlComponent;
+import financial.assistant.exceptions.ComponentLoadException;
 import financial.assistant.ui.shared.CustomButton;
+import financial.assistant.utils.ui.ComponentLoader;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
 @Component
 public class MainComponentController {
 
-    private @Autowired ApplicationContext applicationContext;
+    private static final Logger logger = LoggerFactory.getLogger(MainComponentController.class);
 
+    private @Autowired ApplicationContext applicationContext;
     private @FXML ToolBar menuToolbar;
     private @FXML VBox mainBox;
 
@@ -31,69 +35,41 @@ public class MainComponentController {
 
         for(MenuOption menuOption: MenuOption.values()) {
             CustomButton button = new CustomButton.CustomButtonBuilder().withAlignment(Pos.CENTER).withImage(new Image(menuOption.getImagePath())).withText(menuOption.getOptionName()).build();
-
             switch (menuOption) {
                 case CREATE_ACCOUNT:
                     button.setOnMouseClicked(event -> {
-                        clear();
-                        openCreateAccountComponent();
+                        openComponent(FxmlComponent.CREATE_ACCOUNT_COMPONENT);
                     });
                     break;
                 case VIEW_ACCOUNTS:
                     button.setOnMouseClicked(event -> {
-                        clear();
-                        openViewAccountsComponent();
+                        openComponent(FxmlComponent.VIEW_ACCOUNT_COMPONENT);
                     });
                     break;
                 case EXPORT_ACCOUNT:
                     button.setOnMouseClicked(event -> {
-                        clear();
-                        openExportAccountComponent();
+                        openComponent(FxmlComponent.EXPORT_ACCOUNT_COMPONENT);
                     });
                     break;
             }
-
             this.menuToolbar.getItems().add(button);
         }
 
     }
 
-    public void clear() {
+    private void clear() {
         if(this.mainBox.getChildren().size() > 1) {
             this.mainBox.getChildren().remove(1);
         }
     }
 
-    public void openCreateAccountComponent() {
+    private void openComponent(FxmlComponent component) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/create-account.component.fxml"));
-            loader.setControllerFactory(applicationContext::getBean);
-            Parent root = loader.load();
+            Parent root = ComponentLoader.loadComponent(component, applicationContext::getBean);
+            clear();
             this.mainBox.getChildren().add(root);
-        }catch(IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void openViewAccountsComponent() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/view-account.component.fxml"));
-            loader.setControllerFactory(applicationContext::getBean);
-            Parent root = loader.load();
-            this.mainBox.getChildren().add(root);
-        }catch(IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void openExportAccountComponent() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/export-account.fxml"));
-            loader.setControllerFactory(applicationContext::getBean);
-            Parent root = loader.load();
-            this.mainBox.getChildren().add(root);
-        }catch(IOException e) {
-            throw new RuntimeException(e);
+        }catch(ComponentLoadException e) {
+            logger.error("An exception occurred while trying to load component = {} from = {}", component, component.getResoucePath(), e);
         }
     }
 }
