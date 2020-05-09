@@ -6,8 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,7 +14,6 @@ public class AddExpenseComponentController {
     private @FXML TextField expenseCostField;
     private @FXML TextField expenseNameField;
     private @FXML Button deleteExpenseButton;
-    private @Autowired ApplicationContext applicationContext;
 
     private String expenseCost;
     private String expenseName;

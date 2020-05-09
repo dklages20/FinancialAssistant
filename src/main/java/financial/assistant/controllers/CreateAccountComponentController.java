@@ -4,13 +4,13 @@ import financial.assistant.entity.MonthlyExpense;
 import financial.assistant.entity.MonthlyFinance;
 import financial.assistant.entity.UserAccount;
 import financial.assistant.repository.UserAccountRepository;
+import financial.assistant.utils.data.NumberUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -63,7 +63,7 @@ public class CreateAccountComponentController {
 
         // build monthly finances
         MonthlyFinance monthlyFinance = new MonthlyFinance();
-        monthlyFinance.setMonthlyIncome(Double.parseDouble(accountIncomeField.getText().trim()));
+        monthlyFinance.setMonthlyIncome(NumberUtils.round(Double.parseDouble(accountIncomeField.getText().trim())));
         monthlyFinance.setCreatedOn(new Timestamp(System.currentTimeMillis()));
         monthlyFinance.setUserAccount(newUserAccount);
 
@@ -82,7 +82,7 @@ public class CreateAccountComponentController {
             }
 
             MonthlyExpense singleFinancialEntry = new MonthlyExpense();
-            singleFinancialEntry.setExpenseCost(Double.parseDouble(expenseCost.getText().trim()));
+            singleFinancialEntry.setExpenseCost(NumberUtils.round(Double.parseDouble(expenseCost.getText().trim())));
             singleFinancialEntry.setExpenseName(expenseName.getText().trim());
             singleFinancialEntry.setUserAccount(newUserAccount);
             monthlyExpenses.add(singleFinancialEntry);
@@ -95,8 +95,8 @@ public class CreateAccountComponentController {
             totalCost += expense.getExpenseCost();
         }
 
-        monthlyFinance.setMonthlyExpenses(totalCost);
-        monthlyFinance.setMonthlyRemaining(monthlyFinance.getMonthlyIncome() - totalCost);
+        monthlyFinance.setMonthlyExpenses(NumberUtils.round(totalCost));
+        monthlyFinance.setMonthlyRemaining(NumberUtils.round(monthlyFinance.getMonthlyIncome() - totalCost));
         newUserAccount.getMonthlyFinances().add(monthlyFinance);
         newUserAccount.getMonthlyExpenses().addAll(monthlyExpenses);
         userAccountRepository.save(newUserAccount);
